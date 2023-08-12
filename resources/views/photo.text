@@ -1,0 +1,4 @@
+ // $("#emp_avatar").val(response.avatar);
+
+ // $("#avatar").html(
+            //   `<img src="storage/images/${response.avatar}" width="100" class="img-fluid img-thumbnail">`);
