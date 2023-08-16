@@ -1,12 +1,11 @@
-@section('title', 'Company')
+@section('title', 'Contact')
     <div class="container-fluit mt-3">
         @include('nav')
     </div>
 
 
+{{-- add new contact modal start --}}
 
-
-{{-- add new employee modal start --}}
 <div class="modal fade" id="addCompanyModal" tabindex="-1" aria-labelledby="exampleModalLabel"
 data-bs-backdrop="static" aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered">
@@ -21,27 +20,38 @@ data-bs-backdrop="static" aria-hidden="true">
 
             <div class="my-2">
                 <label for="company_name">Company Name</label>
-                <input type="text" name="company_name" class="form-control" placeholder="Company Name" required>
+
+                <select name="company_id" class="form-select mb-3" aria-label="Default select example">
+                    <option selected=""> select Company Id</option>
+                    @foreach ($company as $item)
+                        <option value="{{ $item->id }}">{{ $item->company_name }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="my-2">
-                <label for="company_address">Company Address</label>
-                <input type="text" name="company_address" class="form-control" placeholder="Company Address" required>
+                <label for="contact_name">Contact Name</label>
+                <input type="text" name="contact_name" class="form-control" placeholder="Contact Name" required>
             </div>
 
             <div class="my-2">
-                <label for="company_official_email">E-mail</label>
-                <input type="email" name="company_official_email" class="form-control" placeholder="company_official_email" required>
+                <label for="contact_designation">Contact Designation</label>
+                <input type="text" name="contact_designation" class="form-control" placeholder="Contact Designation" required>
             </div>
 
             <div class="my-2">
-                <label for="company_number">Phone</label>
-                <input type="text" name="company_number" class="form-control" placeholder="Phone" required>
+                <label for="contact_number">Phone</label>
+                <input type="text" name="contact_number" class="form-control" placeholder="Phone" required>
             </div>
 
             <div class="my-2">
-                <label for="company_web_addr">Web Address</label>
-                <input type="text" name="company_web_addr" class="form-control" placeholder="company_web_addr" required>
+                <label for="company_web_addr">Contact E-mail</label>
+                <input type="enail" name="contact_email" class="form-control" placeholder="Contact E-mail" required>
+            </div>
+
+            <div class="my-2">
+                <label for="contact_whatsapp">Contact Whatsapp</label>
+                <input type="text" name="contact_whatsapp" class="form-control" placeholder="Contact Whatsapp" required>
             </div>
 
       </div>
@@ -54,9 +64,10 @@ data-bs-backdrop="static" aria-hidden="true">
   </div>
 </div>
 </div>
+{{-- add new contact modal end --}}
 
 
-{{-- edit employee modal start --}}
+{{-- edit contact modal start --}}
 <div class="modal fade" id="editCompanyModal" tabindex="-1" aria-labelledby="exampleModalLabel"
 data-bs-backdrop="static" aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered">
@@ -70,30 +81,38 @@ data-bs-backdrop="static" aria-hidden="true">
       <input type="hidden" name="emp_id" id="emp_id">
       {{-- <input type="hidden" name="emp_avatar" id="emp_avatar"> --}}
       <div class="modal-body p-4 bg-light">
+      <select name="company_id" id="company_id_dropdown" class="form-select mb-3" aria-label="Default select example">
+          <option selected=""> select Company Id</option>
+          @foreach ($company as $item)
+              <option value="{{ $item->id }}">{{ $item->company_name }}</option>
+          @endforeach
+      </select>
+
         <div class="my-2">
-            <label for="company_name">Company Name</label>
-            <input type="text" name="company_name" id="company_name" class="form-control" placeholder="Company Name" required>
+            <label for="contact_name">Contact Name</label>
+            <input type="text" name="contact_name" id="contact_name" class="form-control" placeholder="Contact Name" required>
         </div>
 
         <div class="my-2">
-            <label for="company_address">Company Address</label>
-            <input type="text" name="company_address" id="company_address" class="form-control" placeholder="Company Address" required>
+            <label for="contact_designation">Contact Designation</label>
+            <input type="text" name="contact_designation" id="contact_designation" class="form-control" placeholder="Contact Designation" required>
         </div>
 
         <div class="my-2">
-            <label for="company_official_email">E-mail</label>
-            <input type="email" name="company_official_email" id="company_official_email" class="form-control" placeholder="company_official_email" required>
+            <label for="contact_number">Phone</label>
+            <input type="text" name="contact_number" id="contact_number" class="form-control" placeholder="Phone" required>
         </div>
 
         <div class="my-2">
-            <label for="company_number">Phone</label>
-            <input type="text" name="company_number" id="company_number" class="form-control" placeholder="Phone" required>
+            <label for="company_web_addr">Contact E-mail</label>
+            <input type="enail" name="contact_email" id="contact_email" class="form-control" placeholder="Contact E-mail" required>
         </div>
 
         <div class="my-2">
-            <label for="company_web_addr">Web Address</label>
-            <input type="text" name="company_web_addr" id="company_web_addr" class="form-control" placeholder="company_web_addr" required>
+            <label for="contact_whatsapp">Contact Whatsapp</label>
+            <input type="text" name="contact_whatsapp" id="contact_whatsapp" class="form-control" placeholder="Contact Whatsapp" required>
         </div>
+
 
       </div>
       <div class="modal-footer">
@@ -104,19 +123,16 @@ data-bs-backdrop="static" aria-hidden="true">
   </div>
 </div>
 </div>
-{{-- edit employee modal end --}}
 
 
 
-
-<div class="container ">
-
+{{-- edit contact modal end --}}
+<div class="container">
   <div class="row my-5">
     <div class="col-lg-12">
       <div class="card shadow">
         <div class="card-header bg-danger d-flex justify-content-between align-items-center">
-
-          <h3 class="text-light">Manage Company</h3>
+          <h3 class="text-light">Manage Contacts</h3>
           <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addCompanyModal"><i
               class="bi-plus-circle me-2"></i>Add New </button>
         </div>
@@ -130,15 +146,17 @@ data-bs-backdrop="static" aria-hidden="true">
 
 @include('js')
 
-<script>
-    $(function() {
 
-// fetch all employees ajax request ------------------------------------
+
+<script type="text/javascript">
+$(function() {
+
+// fetch all contacts ajax request ------------------------------------
     fetchAllEmployees();
 
-    function fetchAllEmployees() {
+  function fetchAllEmployees() {
     $.ajax({
-        url: '{{ route('fetchAll') }}',
+        url: '{{ route('contact.fetchAll') }}',
         method: 'get',
         success: function(response) {
         $("#show_all_companys").html(response);
@@ -147,38 +165,40 @@ data-bs-backdrop="static" aria-hidden="true">
         });
         }
     });
-    }
+  }
 
-// edit employee ajax request ----------------------------------------------
+// edit contact ajax request ----------------------------------------------
     $(document).on('click', '.editIcon', function(e) {
         e.preventDefault();
         let id = $(this).attr('id');
         $.ajax({
-          url: '{{ route('edit') }}',
+          url: '{{ route('contact.edit') }}',
           method: 'get',
           data: {
             id: id,
             _token: '{{ csrf_token() }}'
           },
           success: function(res) {
-            $("#company_name").val(res.company_name);
-            $("#company_address").val(res.company_address);
-            $("#company_official_email").val(res.company_official_email);
-            $("#company_number").val(res.company_number);
-            $("#company_web_addr").val(res.company_web_addr);
+            console.log(res);
+            $("#company_id_dropdown").val(res.company_id);
+            $("#contact_name").val(res.contact_name);
+            $("#contact_designation").val(res.contact_designation);
+            $("#contact_number").val(res.contact_number);
+            $("#contact_email").val(res.contact_email);
+            $("#contact_whatsapp").val(res.contact_whatsapp);
             $("#emp_id").val(res.id);
           }
         });
       });
 
 
-// add new employee ajax request-------------------------------------------------
+// add new contact ajax request-------------------------------------------------
       $("#add_company_form").submit(function(e) {
         e.preventDefault();
         const fd = new FormData(this);
         $("#add_company_btn").text('Adding...');
         $.ajax({
-          url: '{{ route('store') }}',
+          url: '{{ route('contact.store') }}',
           method: 'post',
           data: fd,
           cache: false,
@@ -203,13 +223,13 @@ data-bs-backdrop="static" aria-hidden="true">
 
 
 
-// update employee ajax request ------------------------------------------
+// update contact ajax request ------------------------------------------
       $("#edit_company_form").submit(function(e) {
         e.preventDefault();
         const fd = new FormData(this);
         $("#edit_company_btn").text('Updating...');
         $.ajax({
-          url: '{{ route('update') }}',
+          url: '{{ route('contact.update') }}',
           method: 'post',
           data: fd,
           cache: false,
@@ -232,7 +252,7 @@ data-bs-backdrop="static" aria-hidden="true">
         });
       });
 
-// delete employee ajax request ---------------------------------------------------------
+// delete contact ajax request --------------------------------------------
       $(document).on('click', '.deleteIcon', function(e) {
         e.preventDefault();
         let id = $(this).attr('id');
@@ -248,7 +268,7 @@ data-bs-backdrop="static" aria-hidden="true">
         }).then((result) => {
           if (result.isConfirmed) {
             $.ajax({
-              url: '{{ route('delete') }}',
+              url: '{{ route('contact.delete') }}',
               method: 'delete',
               data: {
                 id: id,
@@ -267,6 +287,8 @@ data-bs-backdrop="static" aria-hidden="true">
           }
         })
       });
+
+
     });
   </script>
 

@@ -7,27 +7,30 @@ use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    public function index(){
+    public function CompanyIndex(){
         return view('home');
-    }
+    } //End Method
 
-// handle insert a new employee ajax request ----------------------------------------------------------
-	public function store(Request $request) {
+// handle insert a new Company ajax request ----------------------------------------------------------
+	public function CompanyStore(Request $request) {
 
-		// $file = $request->file('avatar');
-		// $fileName = time() . '.' . $file->getClientOriginalExtension();
-		// $file->storeAs('public/images', $fileName);
+		$empData = [
+            'company_name' => $request->company_name,
+            'company_address' => $request->company_address,
+            'company_official_email' => $request->company_official_email,
+            'company_number' => $request->company_number,
+            'company_web_addr' => $request->company_web_addr
+        ];
 
-		$empData = ['company_name' => $request->company_name, 'company_address' => $request->company_address, 'company_official_email' => $request->company_official_email, 'company_number' => $request->company_number, 'company_web_addr' => $request->company_web_addr]; // 'avatar' => $fileName
 		Company::create($empData);
 		return response()->json([
 			'status' => 200,
 		]);
-	}
+	} //End Method
 
 
 // handle fetch all Company ajax request-------------------------------------------
-	public function fetchAll() {
+	public function CompanyFetchAll() {
 		$comps = Company::all();
 		$output = '';
 		if ($comps->count() > 0) {
@@ -64,47 +67,36 @@ class CompanyController extends Controller
 		} else {
 			echo '<h1 class="text-center text-secondary my-5">No record present in the database!</h1>';
 		}
-	}
-
-    // <td><img src="storage/images/' . $emp->avatar . '" width="50" class="img-thumbnail rounded-circle"></td>
+	} //End Method
 
 
-	// handle edit an employee ajax request
-	public function edit(Request $request) {
+	// handle edit an Company ajax request ------------------------------------------------
+	public function CompanyEdit(Request $request) {
 		$id = $request->id;
 		$emp = Company::find($id);
 		return response()->json($emp);
-	}
+	} //End Method
 
-	// handle update an employee ajax request
-	public function update(Request $request) {
-		// $fileName = '';
+	// handle update an Company ajax request -------------------------------------------------
+	public function CompanyUpdate(Request $request) {
 		$emp = Company::find($request->emp_id);
-		// if ($request->hasFile('avatar')) {
-		// 	$file = $request->file('avatar');
-		// 	$fileName = time() . '.' . $file->getClientOriginalExtension();
-		// 	$file->storeAs('public/images', $fileName);
-		// 	if ($emp->avatar) {
-		// 		Storage::delete('public/images/' . $emp->avatar);
-		// 	}
-		// } else {
-		// 	$fileName = $request->emp_avatar;
-		// }
-
-		$empData = ['company_name' => $request->company_name, 'company_address' => $request->company_address, 'company_official_email' => $request->company_official_email, 'company_number' => $request->company_number, 'company_web_addr' => $request->company_web_addr]; //'avatar' => $fileName
+		$empData = [
+            'company_name' => $request->company_name,
+            'company_address' => $request->company_address,
+            'company_official_email' => $request->company_official_email,
+            'company_number' => $request->company_number,
+            'company_web_addr' => $request->company_web_addr
+        ];
 
 		$emp->update($empData);
 		return response()->json([
 			'status' => 200,
 		]);
-	}
+	} //End Method
 
-	// handle delete an employee ajax request
-	public function delete(Request $request) {
+	// handle delete an Company ajax request ---------------------------------------
+	public function CompanyDelete(Request $request) {
 		$id = $request->id;
         Company::destroy($id);
-		// if (Storage::delete('public/images/' . $emp->avatar)) {
-		// 	Company::destroy($id);
-		// }
-	}
+	} //End Method
 }
