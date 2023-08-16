@@ -48,7 +48,7 @@ class MeetingController extends Controller
                 <th>Action</th>
               </tr>
             </thead>
-            <tbody>';
+            <tbody id="tbody">';
 			foreach ($comps as $emp) {
 				$output .= '<tr>
                 <td>' . $emp->id . '</td>
@@ -98,4 +98,22 @@ class MeetingController extends Controller
 		$id = $request->id;
         Meeting::destroy($id);
 	} // End Method
+
+	// handle Search an Meeting ajax request -------------------------------------------------
+
+    public function MeetingSearch(Request $request){
+        $query = Meeting::query();
+        if ($request->ajax()) {
+            $users = $query->where('meeting_title','LIKE','%'.$request->search.'%')
+            ->orWhere('meeting_title', 'LIKE', '%'.$request->search.'%')
+            ->orWhere('next_meeting', 'LIKE', '%'.$request->search.'%')
+            ->get();
+            return response()->json(['users'=>$users]);
+        }
+        else{
+            $users =  $query->get();
+            return view('meeting',compact('users'));
+        }
+    }
+
 }

@@ -291,5 +291,45 @@ data-bs-backdrop="static" aria-hidden="true">
     });
   </script>
 
+<script>
+// add new employee ajax request -------------------------------------------------------
+
+$(document).ready(function(){
+    $("#search").on('keyup',function(){
+        var value = $(this).val();
+        $.ajax({
+            url:"{{ route('meeting.search') }}",
+            type:"GET",
+            data:{'search':value},
+            success:function(data){
+                var users = data.users;
+                var html = '';
+                if (users.length > 0) {
+                    for(let i = 0; i < users.length; i++){
+                        html += `<tr>\
+                                    <td>`+users[i]['id']+`</td>\
+                                    <td>`+users[i]['contact_person_id']+`</td>\
+                                    <td>`+users[i]['meeting_title']+`</td>\
+                                    <td>`+users[i]['meeting_purpose']+`</td>\
+                                    <td>`+users[i]['meeting_discussion']+`</td>\
+                                    <td>`+users[i]['meeting_result']+`</td>\
+                                    <td>`+users[i]['next_meeting']+`</td>\
+                                </tr>`;
+                    }
+                } else {
+                    html += `<tr>\
+                                    <td>Search Not Found</td>\
+                                </tr>`;
+                }
+                $('#tbody').html(html);
+            }
+        });
+    });
+});
+
+
+
+</script>
+
 </body>
 </html>

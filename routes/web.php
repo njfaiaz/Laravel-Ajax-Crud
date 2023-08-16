@@ -41,3 +41,4 @@ Route::get('/meeting/fetchAll', [MeetingController::class, 'MeetingFetchAll'])->
 Route::get('/meeting/edit', [MeetingController::class, 'MeetingEdit'])->name('meeting.edit');
 Route::post('/meeting/update', [MeetingController::class, 'MeetingUpdate'])->name('meeting.update');
 Route::delete('/meeting/delete', [MeetingController::class, 'MeetingDelete'])->name('meeting.delete');
+Route::get('/meeting/search', [MeetingController::class, 'MeetingSearch'])->name('meeting.search');
